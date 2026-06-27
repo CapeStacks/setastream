@@ -3,6 +3,7 @@
 Kept separate from models and views so it is easy to test and reason about.
 """
 
+import os
 import shutil
 import subprocess
 import tempfile
@@ -16,7 +17,9 @@ from docxtpl import DocxTemplate
 from .models import CertificateNumberSequence
 
 # LibreOffice is invoked headlessly to render the filled .docx to PDF.
-SOFFICE_BINARY = "/usr/bin/soffice"
+# Allow deployments to set SOFFICE_BINARY explicitly; otherwise use PATH before
+# falling back to the common Linux package location.
+SOFFICE_BINARY = os.environ.get("SOFFICE_BINARY") or shutil.which("soffice") or "/usr/bin/soffice"
 SOFFICE_TIMEOUT_SECONDS = 60
 
 # The sequence is a singleton: we always read/write the same row.
