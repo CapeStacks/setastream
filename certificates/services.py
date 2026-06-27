@@ -19,7 +19,9 @@ from .models import CertificateNumberSequence
 # LibreOffice is invoked headlessly to render the filled .docx to PDF.
 # Allow deployments to set SOFFICE_BINARY explicitly; otherwise use PATH before
 # falling back to the common Linux package location.
-SOFFICE_BINARY = os.environ.get("SOFFICE_BINARY") or shutil.which("soffice") or "/usr/bin/soffice"
+SOFFICE_BINARY = (
+    os.environ.get("SOFFICE_BINARY") or shutil.which("soffice") or "/usr/bin/soffice"
+)
 SOFFICE_TIMEOUT_SECONDS = 60
 
 # The sequence is a singleton: we always read/write the same row.
