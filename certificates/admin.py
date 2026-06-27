@@ -72,6 +72,11 @@ class CertificateAdmin(admin.ModelAdmin):
             return ()
         return [field.name for field in self.model._meta.fields]
 
+    def has_delete_permission(self, request, obj=None):
+        # Issued certificates are permanent audit records. They can be cancelled
+        # or reissued, but they should never disappear from the register.
+        return False
+
     def get_changeform_initial_data(self, request):
         return {"issue_date": timezone.localdate()}
 
@@ -176,3 +181,8 @@ class CertificateNumberSequenceAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+admin.site.site_header = "Setastream Certificate Register"
+admin.site.site_title = "Setastream"
+admin.site.index_title = "Certificate management"
