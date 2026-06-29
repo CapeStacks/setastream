@@ -137,6 +137,7 @@ class CourseAdmin(admin.ModelAdmin):
         "level",
         "credits",
         "saqa_id",
+        "course_code",
         "accreditation_body",
         "is_active",
     ]
