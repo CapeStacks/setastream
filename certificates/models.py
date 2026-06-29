@@ -9,17 +9,18 @@ def validate_docx_extension(value):
 
 
 class Course(models.Model):
-    name = models.CharField(max_length=200)
-    level = models.CharField(max_length=50)
-    credits = models.PositiveIntegerField()
-    saqa_id = models.CharField(max_length=20)
-    accreditation_body = models.CharField(max_length=200)
-    validity_months = models.PositiveIntegerField(default=36)
-    template_file = models.FileField(
-        upload_to="course_templates/", validators=[validate_docx_extension]
+    name                = models.CharField(max_length=200)
+    level               = models.CharField(max_length=50)
+    credits             = models.PositiveIntegerField()
+    saqa_id             = models.CharField(max_length=20)
+    course_code         = models.CharField(max_length = 50, blank=True, help_text="Internal course code shown on the certificate, e.g. 'BLS 1260'")
+    accreditation_body  = models.CharField(max_length=200)
+    validity_months     = models.PositiveIntegerField(default=36)
+    template_file       = models.FileField(
+        upload_to       ="course_templates/", validators=[validate_docx_extension]
     )
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    is_active           = models.BooleanField(default=True)
+    created_at          = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.name} - {self.level}"
