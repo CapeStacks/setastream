@@ -16,14 +16,14 @@ from django.urls import reverse
 
 from docx import Document
 
-from certificates.models import (
+from Source.certificates.models import (
     AuditLog,
     Certificate,
     CertificateNumberSequence,
     Course,
     Learner,
 )
-from certificates.services import (
+from Source.certificates.services import (
     convert_docx_to_pdf,
     generate_certificate_pdf,
     render_certificate_docx,
