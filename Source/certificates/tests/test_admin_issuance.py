@@ -122,3 +122,15 @@ class CertificateAdminIssuanceTests(TestCase):
         self.assertEqual(response.status_code, 403)
         cert.refresh_from_db()
         self.assertEqual(cert.assessor_name, original_assessor)
+
+    def test_cannot_delete_issued_certificate(self):
+        self.client.post(self._add_url(), self._post_data())
+        cert = Certificate.objects.get()
+
+        delete_url = reverse(
+            "admin:certificates_certificate_delete", args=[cert.pk]
+        )
+        response = self.client.post(delete_url, {"post": "yes"})
+
+        self.assertEqual(response.status_code, 403)
+        self.assertTrue(Certificate.objects.filter(pk=cert.pk).exists())
