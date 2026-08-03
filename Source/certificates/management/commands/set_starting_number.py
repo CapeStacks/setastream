@@ -8,8 +8,8 @@ After running this, the next certificate generated will be 9843215505.
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
-from Source.certificates.models import CertificateNumberSequence
-from Source.certificates.services import SEQUENCE_ID
+from certificates.models import CertificateNumberSequence
+from certificates.services import SEQUENCE_ID
 
 
 class Command(BaseCommand):

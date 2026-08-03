@@ -10,7 +10,7 @@ from django.urls import reverse
 
 from docx import Document
 
-from Source.certificates.models import AuditLog, Certificate, Course, Learner
+from certificates.models import AuditLog, Certificate, Course, Learner
 
 User = get_user_model()
 

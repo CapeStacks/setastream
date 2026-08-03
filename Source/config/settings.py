@@ -4,16 +4,12 @@ import dj_database_url
 import os
 
 load_dotenv () 
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-dev-fallaback-not-for-prod")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "t")
-ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.environ.get("ALLOWED_HOSTS", "").split(",")
-    if host.strip()
-]
+DEBUG = True
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 # Application definition
 

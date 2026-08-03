@@ -4,8 +4,8 @@ from django.core.management import call_command
 from django.db import connection
 from django.test import TestCase, TransactionTestCase
 
-from Source.certificates.models import CertificateNumberSequence
-from Source.certificates.services import generate_next_certificate_number
+from certificates.models import CertificateNumberSequence
+from certificates.services import generate_next_certificate_number
 
 
 class CertificateNumberTests(TestCase):
