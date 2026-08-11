@@ -42,6 +42,14 @@ input {
 }
 
 .brand-panel {
+    --pointer-x: 50%;
+    --pointer-y: 50%;
+    --dot-x: 0px;
+    --dot-y: 0px;
+    --logo-x: 0px;
+    --logo-y: 0px;
+    --message-x: 0px;
+    --message-y: 0px;
     position: relative;
     min-height: 100%;
     overflow: hidden;
@@ -53,13 +61,34 @@ input {
         radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.05), transparent 34%),
         radial-gradient(circle at 70% 80%, rgba(24, 199, 172, 0.05), transparent 32%);
     background-size: 16px 16px, 100% 100%, 100% 100%;
+    background-position: var(--dot-x) var(--dot-y), center, center;
 }
 
+.brand-panel::before,
 .brand-panel::after {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
+}
+
+.brand-panel::before {
+    z-index: 0;
+    opacity: 0;
+    background: radial-gradient(
+        circle 280px at var(--pointer-x) var(--pointer-y),
+        rgba(255, 255, 255, 0.13),
+        rgba(24, 199, 172, 0.055) 34%,
+        transparent 72%
+    );
+    transition: opacity 240ms ease;
+}
+
+.brand-panel.is-pointer-active::before {
+    opacity: 1;
+}
+
+.brand-panel::after {
     background: linear-gradient(180deg, rgba(10, 11, 11, 0.05), rgba(10, 11, 11, 0.34));
 }
 
@@ -80,6 +109,7 @@ input {
     letter-spacing: 0.08em;
     text-decoration: none;
     text-transform: uppercase;
+    transform: translate3d(var(--logo-x), var(--logo-y), 0);
 }
 
 .brand-mark {
@@ -103,7 +133,7 @@ input {
     right: 50px;
     top: 50%;
     max-width: 440px;
-    transform: translateY(-42%);
+    transform: translate3d(var(--message-x), calc(-42% + var(--message-y)), 0);
 }
 
 .eyebrow {
