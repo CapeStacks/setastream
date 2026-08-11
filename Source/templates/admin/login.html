@@ -34,7 +34,9 @@
                 <header class="login-header">
                     <p class="mobile-brand">SetaStream</p>
                     <h2 id="login-heading">Sign in</h2>
-                    <p>Enter your details to continue.</p>
+                    <p>Start your journey with us by signing in or
+                        signing up.
+                    </p>
                 </header>
 
                 {% if form.errors %}
@@ -42,7 +44,7 @@
                         {% if form.non_field_errors %}
                             {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
                         {% else %}
-                            <p>Please check your details and try again.</p>
+                            <p>Hey, welcome to setastream </p>
                         {% endif %}
                     </div>
                 {% endif %}
@@ -51,7 +53,7 @@
                     {% csrf_token %}
 
                     <div class="form-field">
-                        <label for="id_username">Email or username</label>
+                        <label for="id_username">Email</label>
                         <input
                             type="text"
                             id="id_username"
@@ -90,7 +92,7 @@
                     <input type="hidden" name="next" value="{{ next }}">
 
                     <button type="submit" class="continue-button" id="continueButton">
-                        <span class="button-label">Continue</span>
+                        <span class="button-label">Sign in</span>
                         <span class="button-loader" aria-hidden="true"></span>
                     </button>
                 </form>
@@ -106,7 +108,7 @@
                     Continue with Google
                 </button>
 
-                <p class="access-help">Need access? Contact your administrator.</p>
+                <p class="access-help">Don't have an account? <a href="/accounts/signup/">Sign up</a></p>
             </div>
         </section>
     </main>
