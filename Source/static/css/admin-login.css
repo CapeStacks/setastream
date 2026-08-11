@@ -393,6 +393,66 @@ input {
     text-align: center;
 }
 
+.access-help a {
+    color: var(--ink);
+    font-weight: 700;
+    text-underline-offset: 3px;
+}
+
+.signup-content {
+    width: min(100%, 470px);
+}
+
+.signup-header {
+    margin-bottom: 32px;
+}
+
+.signup-form .form-field {
+    margin-bottom: 22px;
+}
+
+.field-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.field-help {
+    margin: 7px 0 0;
+    color: #8a8c8d;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.signup-complete h2 {
+    margin: 0 0 16px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 38px;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1.08;
+}
+
+.signup-complete > p:not(.status-kicker) {
+    margin: 0 0 34px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.status-kicker {
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.button-link {
+    text-decoration: none;
+}
+
 :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
@@ -454,6 +514,11 @@ input {
 
     .login-header {
         margin-bottom: 36px;
+    }
+
+    .field-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
     }
 }
 

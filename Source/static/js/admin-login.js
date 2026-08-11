@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('#loginForm');
+    const form = document.querySelector('[data-auth-form]');
     const brandPanel = document.querySelector('.brand-panel');
-    const password = document.querySelector('#id_password');
-    const passwordToggle = document.querySelector('#passwordToggle');
-    const continueButton = document.querySelector('#continueButton');
+    const continueButton = form?.querySelector('#continueButton');
 
     const pointerMotionAllowed = window.matchMedia(
         '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)'
@@ -74,12 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    passwordToggle?.addEventListener('click', () => {
-        const isVisible = password.type === 'text';
-        password.type = isVisible ? 'password' : 'text';
-        passwordToggle.textContent = isVisible ? 'Show' : 'Hide';
-        passwordToggle.setAttribute('aria-pressed', String(!isVisible));
-        password.focus({ preventScroll: true });
+    document.querySelectorAll('[data-password-toggle]').forEach((passwordToggle) => {
+        const password = document.querySelector(`#${passwordToggle.getAttribute('aria-controls')}`);
+        if (!password) return;
+
+        passwordToggle.addEventListener('click', () => {
+            const isVisible = password.type === 'text';
+            password.type = isVisible ? 'password' : 'text';
+            passwordToggle.textContent = isVisible ? 'Show' : 'Hide';
+            passwordToggle.setAttribute('aria-pressed', String(!isVisible));
+            password.focus({ preventScroll: true });
+        });
     });
 
     form?.addEventListener('submit', (event) => {
@@ -89,9 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        continueButton.disabled = true;
-        continueButton.classList.add('is-loading');
-        continueButton.setAttribute('aria-busy', 'true');
-        continueButton.querySelector('.button-label').textContent = 'Signing in';
+        if (continueButton) {
+            continueButton.disabled = true;
+            continueButton.classList.add('is-loading');
+            continueButton.setAttribute('aria-busy', 'true');
+            continueButton.querySelector('.button-label').textContent =
+                continueButton.dataset.loadingLabel;
+        }
     });
 });

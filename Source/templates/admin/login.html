@@ -49,7 +49,7 @@
                     </div>
                 {% endif %}
 
-                <form method="post" action="{{ app_path }}" class="login-form" id="loginForm" novalidate>
+                <form method="post" action="{{ app_path }}" class="login-form" id="loginForm" data-auth-form novalidate>
                     {% csrf_token %}
 
                     <div class="form-field">
@@ -74,7 +74,7 @@
                     <div class="form-field">
                         <div class="field-label-row">
                             <label for="id_password">Password</label>
-                            <button type="button" class="password-toggle" id="passwordToggle" aria-controls="id_password" aria-pressed="false">Show</button>
+                            <button type="button" class="password-toggle" id="passwordToggle" data-password-toggle aria-controls="id_password" aria-pressed="false">Show</button>
                         </div>
                         <input
                             type="password"
@@ -91,7 +91,7 @@
 
                     <input type="hidden" name="next" value="{{ next }}">
 
-                    <button type="submit" class="continue-button" id="continueButton">
+                    <button type="submit" class="continue-button" id="continueButton" data-loading-label="Signing in">
                         <span class="button-label">Sign in</span>
                         <span class="button-loader" aria-hidden="true"></span>
                     </button>
@@ -108,7 +108,7 @@
                     Continue with Google
                 </button>
 
-                <p class="access-help">Don't have an account? <a href="/accounts/signup/">Sign up</a></p>
+                <p class="access-help">Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
             </div>
         </section>
     </main>
