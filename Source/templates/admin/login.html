@@ -7,6 +7,9 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sign in | SetaStream</title>
     <link rel="icon" type="image/jpeg" href="{% static 'images/setastream-mark.jpg' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/admin-login.css' %}">
     <script src="{% static 'js/admin-login.js' %}" defer></script>
 </head>
@@ -14,10 +17,7 @@
     <main class="auth-shell">
         <section class="brand-panel" aria-labelledby="brand-heading">
             <a class="brand-lockup" href="{% url 'admin:index' %}" aria-label="SetaStream admin home">
-                <span class="brand-mark">
-                    <img src="{% static 'images/setastream-mark.jpg' %}" alt="">
-                </span>
-                <span>SetaStream</span>
+                <span class="brand-name">SetaStream</span>
             </a>
 
             <div class="brand-message">
