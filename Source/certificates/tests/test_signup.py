@@ -1,6 +1,10 @@
+from unittest.mock import patch
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
+
+from main.forms import SignUpForm
 
 
 User = get_user_model()
@@ -45,6 +49,20 @@ class SignUpTests(TestCase):
         )
 
         response = self.client.post(reverse("signup"), self.signup_data())
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "An account request already exists")
+        self.assertEqual(User.objects.count(), 1)
+
+    def test_save_time_duplicate_is_returned_as_form_error(self):
+        User.objects.create_user(
+            username="amina@example.com",
+            email="amina@example.com",
+            password="StrongPass!234",
+        )
+
+        with patch.object(SignUpForm, "clean_email", return_value="amina@example.com"):
+            response = self.client.post(reverse("signup"), self.signup_data())
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "An account request already exists")

@@ -1,3 +1,4 @@
+from django.db import IntegrityError, transaction
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -10,8 +11,13 @@ def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect(f"{reverse('signup')}?submitted=1")
+            try:
+                with transaction.atomic():
+                    form.save()
+            except IntegrityError:
+                form.add_error("email", form.duplicate_email_error)
+            else:
+                return redirect(f"{reverse('signup')}?submitted=1")
     else:
         form = SignUpForm()
 

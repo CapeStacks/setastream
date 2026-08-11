@@ -7,6 +7,8 @@ User = get_user_model()
 
 
 class SignUpForm(UserCreationForm):
+    duplicate_email_error = "An account request already exists for this email address."
+
     first_name = forms.CharField(max_length=150)
     last_name = forms.CharField(max_length=150)
     email = forms.EmailField(max_length=150)
@@ -20,7 +22,7 @@ class SignUpForm(UserCreationForm):
         if User.objects.filter(email__iexact=email).exists() or User.objects.filter(
             username__iexact=email
         ).exists():
-            raise forms.ValidationError("An account request already exists for this email address.")
+            raise forms.ValidationError(self.duplicate_email_error)
         return email
 
     def save(self, commit=True):
