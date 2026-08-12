@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Create an account | SetaStream</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'images/setastream-mark.jpg' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/admin-login.css' %}">
+    <script src="{% static 'js/admin-login.js' %}" defer></script>
+</head>
+<body class="admin-login-page">
+    <main class="auth-shell">
+        <section class="brand-panel" aria-labelledby="brand-heading">
+            <a class="brand-lockup" href="{% url 'admin:index' %}" aria-label="SetaStream admin home">
+                <span class="brand-name">SetaStream</span>
+            </a>
+
+            <div class="brand-message">
+                <h1 id="brand-heading">AUTOMATED CERTIFICATE<br>ISSUANCE.</h1>
+                <p class="brand-copy">Connect your attendee list, select a template, and issue hundreds of personalized certificates in seconds.</p>
+            </div>
+
+            <p class="brand-footer">BUILT FOR EDUCATORS, TRAINERS &amp; EVENT ORGANISERS.</p>
+        </section>
+
+        <section class="login-panel" aria-labelledby="signup-heading">
+            <div class="login-content signup-content">
+                {% if registration_complete %}
+                    <div class="signup-complete" role="status">
+                        <p class="status-kicker">Request received</p>
+                        <h2 id="signup-heading">Thanks for signing up.</h2>
+                        <p>Your account is awaiting administrator approval. You’ll be able to sign in after it has been activated.</p>
+                        <a class="continue-button button-link" href="{% url 'admin:login' %}">Return to sign in</a>
+                    </div>
+                {% else %}
+                    <header class="login-header signup-header">
+                        <h2 id="signup-heading">Create account</h2>
+                        <p>Enter your details to request access to SetaStream.</p>
+                    </header>
+
+                    {% if form.non_field_errors %}
+                        <div class="form-alert" role="alert">
+                            {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'signup' %}" class="login-form signup-form" id="signupForm" data-auth-form novalidate>
+                        {% csrf_token %}
+
+                        <div class="field-grid">
+                            <div class="form-field">
+                                <label for="id_first_name">First name</label>
+                                <input type="text" id="id_first_name" name="first_name" value="{{ form.first_name.value|default_if_none:'' }}" autocomplete="given-name" required {% if form.first_name.errors %}aria-invalid="true" aria-describedby="first-name-errors"{% endif %}>
+                                {% if form.first_name.errors %}<div class="field-errors" id="first-name-errors">{{ form.first_name.errors }}</div>{% endif %}
+                            </div>
+
+                            <div class="form-field">
+                                <label for="id_last_name">Last name</label>
+                                <input type="text" id="id_last_name" name="last_name" value="{{ form.last_name.value|default_if_none:'' }}" autocomplete="family-name" required {% if form.last_name.errors %}aria-invalid="true" aria-describedby="last-name-errors"{% endif %}>
+                                {% if form.last_name.errors %}<div class="field-errors" id="last-name-errors">{{ form.last_name.errors }}</div>{% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="id_email">Email address</label>
+                            <input type="email" id="id_email" name="email" value="{{ form.email.value|default_if_none:'' }}" autocomplete="email" autocapitalize="none" spellcheck="false" required autofocus {% if form.email.errors %}aria-invalid="true" aria-describedby="email-errors"{% endif %}>
+                            {% if form.email.errors %}<div class="field-errors" id="email-errors">{{ form.email.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="form-field">
+                            <div class="field-label-row">
+                                <label for="id_password1">Password</label>
+                                <button type="button" class="password-toggle" data-password-toggle aria-controls="id_password1" aria-pressed="false">Show</button>
+                            </div>
+                            <input type="password" id="id_password1" name="password1" autocomplete="new-password" required {% if form.password1.errors %}aria-invalid="true" aria-describedby="password1-errors"{% endif %}>
+                            <p class="field-help">Use at least 8 characters and avoid common or entirely numeric passwords.</p>
+                            {% if form.password1.errors %}<div class="field-errors" id="password1-errors">{{ form.password1.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="form-field">
+                            <div class="field-label-row">
+                                <label for="id_password2">Confirm password</label>
+                                <button type="button" class="password-toggle" data-password-toggle aria-controls="id_password2" aria-pressed="false">Show</button>
+                            </div>
+                            <input type="password" id="id_password2" name="password2" autocomplete="new-password" required {% if form.password2.errors %}aria-invalid="true" aria-describedby="password2-errors"{% endif %}>
+                            {% if form.password2.errors %}<div class="field-errors" id="password2-errors">{{ form.password2.errors }}</div>{% endif %}
+                        </div>
+
+                        <button type="submit" class="continue-button" id="continueButton" data-loading-label="Submitting">
+                            <span class="button-label">Request account</span>
+                            <span class="button-loader" aria-hidden="true"></span>
+                        </button>
+                    </form>
+
+                    <p class="access-help">Already have an account? <a href="{% url 'admin:login' %}">Sign in</a></p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

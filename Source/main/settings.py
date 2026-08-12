@@ -11,6 +11,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
+# authentication backends
+
+AUTHENTICATION_BACKENDS = [
+    'main.backends.EmailOrUsernameModelBackend',  # Custom backend for email or username authentication
+    'django.contrib.auth.backends.ModelBackend',  # Default backend for username authentication
+]
+
 # Application definition
 
 INSTALLED_APPS = [
