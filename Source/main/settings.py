@@ -59,25 +59,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-
 # Database
-
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'OPTIONS': {
-            'timeout': 20,
-            'transaction_mode': 'IMMEDIATE',
-            'init_command': 'PRAGMA journal_mode=WAL;',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get("DATABASE"),
+        'USER': os.environ.get("USER"),
+        'PASSWORD': os.environ.get("PASSWORD"),
+        'HOST': os.environ.get("HOST"),
+        'PORT': os.environ.get("PORT"),
+        'URL': os.environ.get("DATABASE_URL")
         },
-        'TEST': {
-            'NAME': BASE_DIR / 'test_db.sqlite3',
-        },
-    }
 }
-
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
         'default': dj_database_url.config(
