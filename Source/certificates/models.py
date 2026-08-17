@@ -79,7 +79,7 @@ class Certificate(models.Model):
 
 
 class CertificateNumberSequence(models.Model):
-    last_number = models.PositiveIntegerField(default=0)
+    last_number = models.PositiveBigIntegerField(default=0)
     updated_at = models.DateTimeField(auto_now=True)
 
 

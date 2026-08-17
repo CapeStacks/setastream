@@ -2,6 +2,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
 import os
+from django.core.exceptions import ImproperlyConfigured
 
 load_dotenv () 
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -59,47 +60,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-
 # Database
 
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if not DATABASE_URL:
+    raise ImproperlyConfigured("DATABASE_URL must be set")
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'OPTIONS': {
-            'timeout': 20,
-            'transaction_mode': 'IMMEDIATE',
-            'init_command': 'PRAGMA journal_mode=WAL;',
-        },
-        'TEST': {
-            'NAME': BASE_DIR / 'test_db.sqlite3',
-        },
-    }
+    "default": dj_database_url.parse(
+        DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
-
-if os.environ.get("DATABASE_URL"):
-    DATABASES = {
-        'default': dj_database_url.config(
-            conn_max_age=600,
-            conn_health_checks=True,
-            )
-     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-            'OPTIONS': {
-                'timeout': 20,
-                'transaction_mode': 'IMMEDIATE',
-                'init_command': 'PRAGMA journal_mode=WAL;',
-            },
-            'TEST': {
-                'NAME': BASE_DIR / 'test_db.sqlite3',
-            },
-        }
-    }
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
