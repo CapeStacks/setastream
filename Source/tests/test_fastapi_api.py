@@ -4,10 +4,11 @@ import unittest
 import zipfile
 
 import httpx2
+from docx import Document
 
 from fastapi_test_app.main import MAX_CONFIGURATION_BYTES, app
 
-from .helpers import configuration_bytes, make_pdf
+from .helpers import configuration_bytes, make_docx, make_pdf
 
 
 class FastApiTests(unittest.IsolatedAsyncioTestCase):
@@ -33,6 +34,20 @@ class FastApiTests(unittest.IsolatedAsyncioTestCase):
     def _zip_names(self, response):
         with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
             return archive.namelist()
+
+    def _common_docx_files(self):
+        return {
+            "certificate_docx": (
+                "template.docx",
+                make_docx(),
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            ),
+            "configuration_json": (
+                "configuration.json",
+                configuration_bytes(),
+                "application/json",
+            ),
+        }
 
     async def test_health_endpoint(self):
         response = await self.client.get("/health")
@@ -159,3 +174,53 @@ class FastApiTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(response.status_code, 422)
         self.assertIn("exactly one page", response.json()["detail"])
+
+    async def test_docx_csv_endpoint_success(self):
+        files = self._common_docx_files()
+        files["csv_file"] = (
+            "recipients.csv",
+            b"recipient_name,certificate_number\nAmina,CERT-001\n",
+            "text/csv",
+        )
+
+        response = await self.client.post("/generate/docx/csv", files=files)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self._zip_names(response), ["CERT-001.docx"])
+        with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+            document = Document(io.BytesIO(archive.read("CERT-001.docx")))
+            text = "\n".join(paragraph.text for paragraph in document.paragraphs)
+        self.assertIn("Amina", text)
+
+    async def test_docx_manual_endpoint_success(self):
+        files = self._common_docx_files()
+        files["recipients_json"] = (
+            "recipients.json",
+            json.dumps(
+                [{"recipient_name": "Naledi", "certificate_number": "CERT-002"}]
+            ).encode(),
+            "application/json",
+        )
+
+        response = await self.client.post("/generate/docx/manual", files=files)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self._zip_names(response), ["CERT-002.docx"])
+
+    async def test_docx_endpoint_rejects_non_docx_filename(self):
+        files = self._common_docx_files()
+        files["certificate_docx"] = (
+            "template.doc",
+            make_docx(),
+            "application/msword",
+        )
+        files["csv_file"] = (
+            "recipients.csv",
+            b"recipient_name,certificate_number\nAmina,CERT-001\n",
+            "text/csv",
+        )
+
+        response = await self.client.post("/generate/docx/csv", files=files)
+
+        self.assertEqual(response.status_code, 422)
+        self.assertIn(".docx", response.json()["detail"])
