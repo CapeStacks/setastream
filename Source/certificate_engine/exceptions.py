@@ -21,10 +21,6 @@ class PDFValidationError(CertificateEngineError):
     """The certificate template is not a supported one-page PDF."""
 
 
-class DOCXValidationError(CertificateEngineError):
-    """The certificate template is not a supported Word DOCX document."""
-
-
 class TextFitError(CertificateEngineError):
     """A configured value cannot fit inside its allowed field width."""
 

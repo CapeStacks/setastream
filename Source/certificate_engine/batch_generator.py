@@ -23,24 +23,18 @@ def sanitize_filename_component(value: Any, fallback: str) -> str:
     text = text.replace("/", "-").replace("\\", "-")
     text = re.sub(r"[^\w.-]+", "-", text, flags=re.UNICODE)
     text = re.sub(r"-+", "-", text).strip(" .-_")
-    for extension in (".docx", ".pdf"):
-        if text.lower().endswith(extension):
-            text = text[: -len(extension)].rstrip(" .-_")
-            break
+    if text.lower().endswith(".pdf"):
+        text = text[:-4].rstrip(" .-_")
     if not text or text in {".", ".."}:
         text = fallback
     return text[:MAX_FILENAME_LENGTH].rstrip(" .-_") or fallback
 
 
 def _unique_pdf_filename(base: str, used_names: set[str]) -> str:
-    return unique_filename(base, ".pdf", used_names)
-
-
-def unique_filename(base: str, extension: str, used_names: set[str]) -> str:
-    candidate = f"{base}{extension}"
+    candidate = f"{base}.pdf"
     suffix = 2
     while candidate.casefold() in used_names:
-        candidate = f"{base}-{suffix}{extension}"
+        candidate = f"{base}-{suffix}.pdf"
         suffix += 1
     used_names.add(candidate.casefold())
     return candidate

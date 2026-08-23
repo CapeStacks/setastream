@@ -6,7 +6,6 @@ import io
 import json
 from typing import Any
 
-from docx import Document
 from reportlab.pdfgen import canvas
 
 from certificate_engine.config import TemplateConfig
@@ -20,17 +19,6 @@ def make_pdf(*, width: float = 612, height: float = 792, pages: int = 1) -> byte
         document.drawString(20, height - 30, f"Template background {page_number}")
         document.showPage()
     document.save()
-    return output.getvalue()
-
-
-def make_docx(
-    text: str = "Certificate for {{ recipient_name }}\nNumber {{ certificate_number }}",
-) -> bytes:
-    output = io.BytesIO()
-    document = Document()
-    for line in text.splitlines():
-        document.add_paragraph(line)
-    document.save(output)
     return output.getvalue()
 
 
