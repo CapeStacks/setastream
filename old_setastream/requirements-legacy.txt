@@ -1,0 +1,9 @@
+# Dependencies used only by the archived Course/Learner/DOCX workflow.
+django-filter==25.2
+docxtpl==0.20.2
+Jinja2==3.1.6
+lxml==6.1.1
+MarkupSafe==3.0.3
+python-dateutil==2.9.0.post0
+python-docx==1.2.0
+six==1.17.0
