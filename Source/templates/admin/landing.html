@@ -236,7 +236,7 @@ p{margin:0}
 /* ---------- footer ---------- */
 footer{background:var(--ink);color:#c9d6e2;padding:48px 0 28px;margin-top:0}
 .footer-grid{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(2,minmax(0,1fr));gap:32px}
-.footer-grid .wordmark-logo{padding:6px 8px;border-radius:6px;background:#fff}
+.footer-grid .wordmark-logo{width:175px}
 .footer-grid p{margin-top:12px;max-width:30ch;font-size:.92rem;color:#9fb2c4}
 .footer-grid h4{margin:0 0 12px;color:#fff;font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
 .footer-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
@@ -281,7 +281,7 @@ footer{background:var(--ink);color:#c9d6e2;padding:48px 0 28px;margin-top:0}
 </head><body data-upload-login-url="{{ upload_login_url }}"><header class="site-header" id="site-header">
   <nav class="shell nav" aria-label="Primary navigation">
     <a class="wordmark" href="{{ login_url }}" aria-label="Sign in to SetaStream">
-      <img class="wordmark-logo" src="{% static 'images/logo.JPG' %}" alt="SetaStream">
+      <img class="wordmark-logo" src="{% static 'images/branding/setastream-logo.svg' %}" alt="SetaStream">
     </a>
     <div class="nav-actions">
       <a class="nav-login" href="{{ login_url }}">Sign in</a>
@@ -517,7 +517,7 @@ footer{background:var(--ink);color:#c9d6e2;padding:48px 0 28px;margin-top:0}
   <div class="shell">
     <div class="footer-grid">
       <div>
-        <a class="wordmark" href="{{ login_url }}" aria-label="Sign in to SetaStream"><img class="wordmark-logo" src="{% static 'images/logo.JPG' %}" alt="SetaStream"></a>
+        <a class="wordmark" href="{{ login_url }}" aria-label="Sign in to SetaStream"><img class="wordmark-logo" src="{% static 'images/branding/setastream-logo-white.svg' %}" alt="SetaStream"></a>
         <p>Personalised certificates in bulk from a design you already have—or create using SetaStream.</p>
       </div>
       <div>

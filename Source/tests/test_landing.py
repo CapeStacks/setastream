@@ -21,7 +21,8 @@ class LandingPageTests(TestCase):
         self.assertContains(response, "Add recipient data")
         self.assertContains(response, "Generate personalised certificates")
         self.assertContains(response, "recipients.csv")
-        self.assertContains(response, "static/images/logo.JPG")
+        self.assertContains(response, "images/branding/setastream-logo.svg")
+        self.assertContains(response, "images/branding/setastream-logo-white.svg")
         self.assertContains(response, f'href="{reverse("signup")}">Sign up</a>')
         self.assertNotContains(response, ">Log in</a>")
 
