@@ -278,9 +278,9 @@ footer{background:var(--ink);color:#c9d6e2;padding:48px 0 28px;margin-top:0}
 }
 </style>
 
-</head><body data-upload-login-url="{{ upload_login_url }}"><header class="site-header" id="site-header">
+</head><body id="top" data-upload-login-url="{{ upload_login_url }}"><header class="site-header" id="site-header">
   <nav class="shell nav" aria-label="Primary navigation">
-    <a class="wordmark" href="{{ login_url }}" aria-label="Sign in to SetaStream">
+    <a class="wordmark" href="#top" aria-label="Back to top">
       <img class="wordmark-logo" src="{% static 'images/branding/setastream-logo.svg' %}" alt="SetaStream">
     </a>
     <div class="nav-actions">
@@ -517,7 +517,7 @@ footer{background:var(--ink);color:#c9d6e2;padding:48px 0 28px;margin-top:0}
   <div class="shell">
     <div class="footer-grid">
       <div>
-        <a class="wordmark" href="{{ login_url }}" aria-label="Sign in to SetaStream"><img class="wordmark-logo" src="{% static 'images/branding/setastream-logo-white.svg' %}" alt="SetaStream"></a>
+        <a class="wordmark" href="#top" aria-label="Back to top"><img class="wordmark-logo" src="{% static 'images/branding/setastream-logo-white.svg' %}" alt="SetaStream"></a>
         <p>Personalised certificates in bulk from a design you already have—or create using SetaStream.</p>
       </div>
       <div>
