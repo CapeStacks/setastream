@@ -279,18 +279,18 @@ footer{background:var(--ink);color:#c9d6e2;padding:48px 0 28px;margin-top:0}
 
 </head><body data-upload-login-url="{{ upload_login_url }}"><header class="site-header" id="site-header">
   <nav class="shell nav" aria-label="Primary navigation">
-    <a class="wordmark" href="{{ login_url }}" aria-label="Log in to SetaStream">
+    <a class="wordmark" href="{{ login_url }}" aria-label="Sign in to SetaStream">
       <img class="wordmark-logo" src="{% static 'images/logo.JPG' %}" alt="SetaStream">
     </a>
     <div class="nav-actions">
-      <a class="nav-login" href="{{ login_url }}">Log in</a>
-      <a class="button button-secondary button-small" href="{{ signup_login_url }}">Sign up</a>
+      <a class="nav-login" href="{{ login_url }}">Sign in</a>
+      <a class="button button-secondary button-small" href="{{ signup_url }}">Sign up</a>
       <a class="button button-accent button-small" href="{{ demo_login_url }}">Request Demo</a>
     </div>
     <button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
     <div class="mobile-nav" id="mobile-nav">
-      <a href="{{ login_url }}">Log in</a>
-      <a href="{{ signup_login_url }}">Sign up</a>
+      <a href="{{ login_url }}">Sign in</a>
+      <a href="{{ signup_url }}">Sign up</a>
       <a class="button button-accent" href="{{ demo_login_url }}">Request Demo</a>
     </div>
   </nav>
@@ -318,7 +318,7 @@ footer{background:var(--ink);color:#c9d6e2;padding:48px 0 28px;margin-top:0}
         <span class="lbl">Works with</span>
         <span class="ft">PDF</span><span class="ft">Word (.docx)</span><span class="ft">PNG</span><span class="ft">JPG</span><span class="ft">CSV</span><span class="ft">Excel</span>
       </div>
-      <p class="hero-note">Keep the design you already use. Nothing is uploaded until you're logged in.</p>
+      <p class="hero-note">Keep the design you already use. Nothing is uploaded until you're signed in.</p>
     </div>
 
     <div class="merge-visual" aria-hidden="true">
@@ -510,16 +510,16 @@ footer{background:var(--ink);color:#c9d6e2;padding:48px 0 28px;margin-top:0}
   <div class="shell">
     <div class="footer-grid">
       <div>
-        <a class="wordmark" href="{{ login_url }}" aria-label="Log in to SetaStream"><img class="wordmark-logo" src="{% static 'images/logo.JPG' %}" alt="SetaStream"></a>
+        <a class="wordmark" href="{{ login_url }}" aria-label="Sign in to SetaStream"><img class="wordmark-logo" src="{% static 'images/logo.JPG' %}" alt="SetaStream"></a>
         <p>Bulk certificates from the design you already have, for training providers and administrators.</p>
       </div>
       <div>
         <h4>Product</h4>
-        <ul><li><a href="{{ how_it_works_login_url }}">How it works</a></li><li><a href="{{ demo_login_url }}">Request a demo</a></li><li><a href="{{ signup_login_url }}">Create an account</a></li></ul>
+        <ul><li><a href="{{ how_it_works_login_url }}">How it works</a></li><li><a href="{{ demo_login_url }}">Request a demo</a></li><li><a href="{{ signup_url }}">Create an account</a></li></ul>
       </div>
       <div>
         <h4>Account</h4>
-        <ul><li><a href="{{ login_url }}">Log in</a></li><li><a href="{{ signup_login_url }}">Sign up</a></li></ul>
+        <ul><li><a href="{{ login_url }}">Sign in</a></li><li><a href="{{ signup_url }}">Sign up</a></li></ul>
       </div>
     </div>
     <div class="footer-base"><span>© 2026 CapeStacks. SetaStream is a CapeStacks product.</span><span>Cape Town, South Africa</span></div>
@@ -547,7 +547,7 @@ footer{background:var(--ink);color:#c9d6e2;padding:48px 0 28px;margin-top:0}
       var ext=(file.name.split('.').pop()||'').toLowerCase();
       if(!ACCEPTED[ext]){err.textContent='"'+file.name+'" isn’t supported. Choose a PDF, Word document (.docx), PNG or JPG certificate.';status.textContent='';input.value='';return;}
       err.textContent='';
-      status.textContent='Taking you to log in — you’ll choose '+file.name+' again after signing in.';
+      status.textContent='Taking you to sign in — you’ll choose '+file.name+' again after signing in.';
       try {
         window.sessionStorage.setItem('setastream.pendingIntent','upload-template');
         window.sessionStorage.setItem('setastream.pendingFilename',file.name);

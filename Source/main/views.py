@@ -24,7 +24,7 @@ def landing(request):
         "admin/landing.html",
         {
             "login_url": login_handoff("dashboard"),
-            "signup_login_url": login_handoff("signup"),
+            "signup_url": reverse("signup"),
             "upload_login_url": login_handoff("upload-template"),
             "create_login_url": login_handoff("create-template"),
             "demo_login_url": login_handoff("request-demo"),

@@ -16,6 +16,8 @@ class LandingPageTests(TestCase):
         self.assertTemplateUsed(response, "admin/landing.html")
         self.assertContains(response, "Automate the boring certificate work")
         self.assertContains(response, "static/images/logo.JPG")
+        self.assertContains(response, f'href="{reverse("signup")}">Sign up</a>')
+        self.assertNotContains(response, ">Log in</a>")
 
     def test_actions_handoff_to_login_with_their_destination(self):
         response = self.client.get(reverse("landing"))
